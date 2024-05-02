@@ -40,20 +40,20 @@ export const SwgViewer: React.FC<SwgViewerProps> = (props) => {
     handleSelect(ceilData);
   };
 
-  const clickOutsideHandler = (e: any, ceils: any) => {
-    if (
-      e.target.classList.contains('mapCeil') ||
-      e.target.classList.contains('mapCeilNumber')
-    ) {
-      return;
-    }
+  // const clickOutsideHandler = (e: any, ceils: any) => {
+  //   if (
+  //     e.target.classList.contains('mapCeil') ||
+  //     e.target.classList.contains('mapCeilNumber')
+  //   ) {
+  //     return;
+  //   }
 
-    ceils.forEach((ceil) => {
-      ceil.style.fill = '#16615d';
-    });
+  //   ceils.forEach((ceil) => {
+  //     ceil.style.fill = '#16615d';
+  //   });
 
-    handleSelect(null);
-  };
+  //   handleSelect(null);
+  // };
 
   useLayoutEffect(() => {
     window.zoomTiger = svgPanZoom('#map', {
@@ -73,11 +73,11 @@ export const SwgViewer: React.FC<SwgViewerProps> = (props) => {
       );
     });
 
-    containerRef.current?.addEventListener(
-      'touchstart',
-      (e) => clickOutsideHandler(e, allCeils),
-      false,
-    );
+    // containerRef.current?.addEventListener(
+    //   'touchstart',
+    //   (e) => clickOutsideHandler(e, allCeils),
+    //   false,
+    // );
   }, []);
 
   const formatCount = (count: number) => {
