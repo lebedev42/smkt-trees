@@ -1,0 +1,1 @@
+export { SwgViewer } from './SwgViewer';
