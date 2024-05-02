@@ -65,10 +65,10 @@ export const SwgViewer: React.FC<SwgViewerProps> = (props) => {
         'touchcancel',
       ],
       init: function (options) {
-        const instance = options.instance,
-          initialScale = 1,
-          pannedX = 0,
-          pannedY = 0;
+        const instance = options.instance;
+        let initialScale = 1;
+        let pannedX = 0;
+        let pannedY = 0;
 
         // Init Hammer
         // Listen only for pointer and touch events
