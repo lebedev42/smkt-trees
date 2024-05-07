@@ -19,6 +19,7 @@ const GlobalStyle = createGlobalStyle`
     scroll-behavior: smooth;
     margin: 0;
     padding: 0;
+    background: #ff335f;
   }
 `;
 

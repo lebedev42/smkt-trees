@@ -4,6 +4,7 @@ import React, { useLayoutEffect, useRef, useState } from 'react';
 import * as Styled from './SwgViewer.styled';
 
 import Map from './ui/map.svg';
+import MapEkb from './ui/map-ekb.svg';
 import { MapItem } from '../../entities/map/api/types';
 
 interface SwgViewerProps {
@@ -157,9 +158,11 @@ export const SwgViewer: React.FC<SwgViewerProps> = (props) => {
     return declOfNum(count, ['дерево', 'дерева', 'деревьев']);
   };
 
+  console.error(mapType);
+
   return (
     <Styled.Container ref={containerRef}>
-      {mapType === 'firstMap' && <Map />}
+      {mapType === 'firstMap' ? <Map /> : <MapEkb />}
       {selected && (
         <Styled.Selected>
           Осталось {selected.available} {formatCount(selected.available)}

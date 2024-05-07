@@ -25,6 +25,10 @@ export const Btn = styled.button<{ typeBtn: 'white' | 'green' }>`
 
   color: ${(props) => (props.typeBtn === 'white' ? '#000000' : '#FAFFF7')};
 
+  font-size: 16px;
+  padding: 10px 30px;
+  border-radius: 30px;
+
   &:hover {
     cursor: pointer;
   }
@@ -32,15 +36,5 @@ export const Btn = styled.button<{ typeBtn: 'white' | 'green' }>`
   &.disabled {
     background: #b6b6b6;
     cursor: not-allowed;
-  }
-
-  @media (max-width: 600px) {
-    padding: 7.13893px 7.55886px;
-    gap: 2.1px;
-
-    border-radius: 5.87912px;
-
-    font-size: 10px;
-    line-height: 12px;
   }
 `;

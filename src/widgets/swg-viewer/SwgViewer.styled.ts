@@ -9,6 +9,9 @@ export const Container = styled.div`
   margin-bottom: 20px;
   width: 100%;
 
+  background: url('/map-bg.png') repeat center center;
+  background-size: 66px 66px;
+
   .mapCeil {
     fill: #16615d;
   }
@@ -23,10 +26,11 @@ export const Selected = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 11px 36px;
+  padding: 8px 26px;
 
   background: #ffffff;
   border-radius: 20px;
+  border: 2px solid #16615d;
 
   font-family: 'Euclid';
   font-style: normal;

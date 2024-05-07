@@ -3,7 +3,7 @@ import React from 'react';
 import * as Styled from './Welcome.styled';
 
 interface WelcomeProps {
-  handleCitySelect: (city: string) => void;
+  handleCitySelect: (city: 'firstMap' | 'secondMap') => void;
 }
 
 export const Welcome: React.FC<WelcomeProps> = ({ handleCitySelect }) => {

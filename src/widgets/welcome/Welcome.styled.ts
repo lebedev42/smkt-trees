@@ -24,12 +24,12 @@ export const Container = styled.div`
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-image: url('/welcome-bg.svg');
+  background-image: url('/welcome-bg.png');
 
   width: 100%;
   height: 100vh;
 
-  padding: 120px 30px 170px;
+  padding: 80px 30px 70px;
 
   @media (max-width: 380px) {
     padding: 50px 20px 80px;

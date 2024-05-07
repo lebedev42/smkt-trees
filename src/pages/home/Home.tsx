@@ -6,17 +6,20 @@ import { SwgViewer } from '../../widgets/swg-viewer';
 import { useMapQuery } from '../../entities/map/api';
 import { MapItem } from '../../entities/map/api/types';
 
-import * as Styled from './Home.styled';
 import { Welcome } from '../../widgets/welcome';
+import { Result } from '../../widgets/result';
+
+import * as Styled from './Home.styled';
 
 const Home = () => {
-  const [mapType, setMapType] = useState('');
+  const [mapType, setMapType] = useState<'firstMap' | 'secondMap' | null>(null);
 
   const { data, isLoading, isError } = useMapQuery(mapType);
 
   const [selectedSector, setSelectedSector] = useState<MapItem | null>(null);
+  const [finished, setFinished] = useState(false);
 
-  const handleCitySelect = (mapType: string) => {
+  const handleCitySelect = (mapType: 'firstMap' | 'secondMap') => {
     setMapType(mapType);
   };
 
@@ -25,6 +28,7 @@ const Home = () => {
       return;
     }
 
+    setFinished(true);
     console.log(selectedSector);
   };
 
@@ -39,27 +43,31 @@ const Home = () => {
   return (
     <Styled.Wrapper>
       {mapType ? (
-        <Styled.Content>
-          <Styled.Title>
-            Приближайте карту, чтобы выбрать сектор для своего дерева
-          </Styled.Title>
-          <SwgViewer
-            selected={selectedSector}
-            handleSelect={setSelectedSector}
-            mapType="firstMap"
-            mapData={data}
-          />
+        finished ? (
+          <Result sector={selectedSector?.number} />
+        ) : (
+          <Styled.Content>
+            <Styled.Title>
+              Приближайте карту, чтобы выбрать сектор для своего дерева
+            </Styled.Title>
+            <SwgViewer
+              selected={selectedSector}
+              handleSelect={setSelectedSector}
+              mapType={mapType}
+              mapData={data}
+            />
 
-          <Styled.Btn
-            typeBtn="white"
-            onClick={handleSubmit}
-            className={clsx({
-              disabled: !selectedSector || selectedSector.available === 0,
-            })}
-          >
-            Выбрать
-          </Styled.Btn>
-        </Styled.Content>
+            <Styled.Btn
+              typeBtn="white"
+              onClick={handleSubmit}
+              className={clsx({
+                disabled: !selectedSector || selectedSector.available === 0,
+              })}
+            >
+              Выбрать
+            </Styled.Btn>
+          </Styled.Content>
+        )
       ) : (
         <Welcome handleCitySelect={handleCitySelect} />
       )}

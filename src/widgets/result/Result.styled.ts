@@ -1,18 +1,35 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  position: relative;
-  width: 100%;
-  height: 100%;
-  background: #ff335f;
-`;
-
-export const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  overflow: hidden;
 
-  padding: 120px 30px 170px;
+  @media (max-width: 475px) {
+    gap: 20px;
+  }
+  @media (max-width: 320px) {
+    gap: 15px;
+  }
+`;
+
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url('/result-bg.png');
+
+  width: 100%;
+  height: 100vh;
+
+  padding: 80px 30px 70px;
 
   @media (max-width: 380px) {
     padding: 50px 20px 80px;
@@ -37,6 +54,12 @@ export const Title = styled.h1`
   @media (max-width: 360px) {
     font-size: 20px;
   }
+`;
+
+export const Actions = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 export const Btn = styled.button<{ typeBtn: 'white' | 'red' }>`

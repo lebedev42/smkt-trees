@@ -7,10 +7,14 @@ import * as constants from './constants';
 
 import { MapItem } from './types';
 
-const getMap = (param: string): Promise<MapItem[]> =>
+const getMap = (param: 'firstMap' | 'secondMap' | null): Promise<MapItem[]> =>
   new Promise((resolve) => {
     setTimeout(() => {
-      resolve(constants.firstMap);
+      if (param === 'firstMap') {
+        resolve(constants.firstMap);
+      } else {
+        resolve(constants.secondMap);
+      }
     }, 1000);
   });
 
@@ -22,7 +26,7 @@ const getMap = (param: string): Promise<MapItem[]> =>
 //   return restApiMethods.get(constants.urls.secondMap);
 // };
 
-export const useMapQuery = (param: string) => {
+export const useMapQuery = (param: 'firstMap' | 'secondMap' | null) => {
   const queryFn = useCallback(() => getMap(param), [param]);
 
   const key =
@@ -34,8 +38,6 @@ export const useMapQuery = (param: string) => {
     queryKey: [key],
     queryFn,
   });
-
-  console.error('data', data);
 
   return {
     data,
