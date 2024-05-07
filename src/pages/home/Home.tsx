@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import queryString from 'query-string';
 import clsx from 'clsx';
 
@@ -22,6 +22,10 @@ const Home = () => {
   const [selectedSector, setSelectedSector] = useState<MapItem | null>(null);
   const [finished, setFinished] = useState(false);
 
+  useEffect(() => {
+    window.Telegram.WebApp.expand();
+  }, []);
+
   const handleCitySelect = (mapType: 'firstMap' | 'secondMap') => {
     setMapType(mapType);
   };
@@ -38,6 +42,7 @@ const Home = () => {
       longitude: selectedSector.coordinates[0],
       latitude: selectedSector.coordinates[1],
       city: mapType === 'firstMap' ? 'spb' : 'ekb',
+      sector: selectedSector.number,
     };
 
     const parsed = queryString.parse(location.search);

@@ -11,4 +11,5 @@ export interface GameResultData {
   longitude: string;
   latitude: string;
   city: string;
+  sector: number;
 }
