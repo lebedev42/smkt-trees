@@ -4,7 +4,12 @@ import clsx from 'clsx';
 
 import { SwgViewer } from '../../widgets/swg-viewer';
 
-import { useMapQuery, useGameMutation } from '../../entities/map/api';
+import {
+  useMapQuery,
+  useGameMutation,
+  useMapMutation,
+} from '../../entities/map/api';
+
 import { MapItem } from '../../entities/map/api/types';
 
 import { Welcome } from '../../widgets/welcome';
@@ -18,6 +23,7 @@ const Home = () => {
   const { data, isLoading, isError } = useMapQuery(mapType);
 
   const { useSendGameResult } = useGameMutation();
+  const { useUpdateMap } = useMapMutation();
 
   const [selectedSector, setSelectedSector] = useState<MapItem | null>(null);
   const [finished, setFinished] = useState(false);
@@ -35,12 +41,15 @@ const Home = () => {
       return;
     }
 
-    setFinished(true);
+    const coords = {
+      latitude: mapType === 'firstMap' ? '59.731966015753095' : '56.326397',
+      longitude: mapType === 'firstMap' ? '30.394953489303592' : '60.932168',
+    };
 
     const resultData = {
       user: '',
-      longitude: selectedSector.lng,
-      latitude: selectedSector.lat,
+      latitude: coords.latitude,
+      longitude: coords.longitude,
       city: mapType === 'firstMap' ? 'spb' : 'ekb',
       sector: selectedSector.number,
     };
@@ -61,7 +70,18 @@ const Home = () => {
       },
     });
 
-    console.log(selectedSector);
+    const updateData = {
+      map: selectedSector,
+      name: mapType,
+    };
+
+    useUpdateMap(updateData, {
+      onSuccess: (response: any) => {
+        console.error('map updated', response);
+      },
+    });
+
+    setFinished(true);
   };
 
   if (isLoading) {
@@ -74,7 +94,7 @@ const Home = () => {
 
   return (
     <Styled.Wrapper>
-      {mapType ? (
+      {data.length ? (
         finished ? (
           <Result sector={selectedSector?.number} />
         ) : (

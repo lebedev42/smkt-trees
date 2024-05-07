@@ -10,7 +10,7 @@ import { MapItem } from '../../entities/map/api/types';
 interface SwgViewerProps {
   selected: MapItem | null;
   handleSelect: (sector: MapItem | null) => void;
-  mapType: 'firstMap' | 'secondMap';
+  mapType: 'firstMap' | 'secondMap' | null;
   mapData: MapItem[] | undefined;
 }
 
@@ -37,6 +37,8 @@ export const SwgViewer: React.FC<SwgViewerProps> = (props) => {
     e.target.style.fill = '#16615d';
 
     const ceilData = mapData.find((item) => item.id === e.target.id);
+
+    console.error('ceilData', ceilData);
 
     handleSelect(ceilData);
   };
@@ -153,8 +155,6 @@ export const SwgViewer: React.FC<SwgViewerProps> = (props) => {
   const formatCount = (count: number) => {
     return declOfNum(count, ['дерево', 'дерева', 'деревьев']);
   };
-
-  console.error(mapType);
 
   return (
     <Styled.Container ref={containerRef}>
