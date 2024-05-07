@@ -12,13 +12,13 @@ export const Content = styled.div`
   flex-direction: column;
   align-items: center;
 
-  padding: 120px 30px 170px;
+  padding: 80px 30px 70px;
 
   @media (max-width: 380px) {
-    padding: 50px 20px 80px;
+    padding: 50px 20px 50px;
   }
   @media (max-width: 320px) {
-    padding: 60px 5px 90px;
+    padding: 40px 10px 40px;
   }
 `;
 

@@ -32,10 +32,10 @@ export const Container = styled.div`
   padding: 80px 30px 70px;
 
   @media (max-width: 380px) {
-    padding: 50px 20px 80px;
+    padding: 50px 20px 50px;
   }
   @media (max-width: 320px) {
-    padding: 60px 5px 90px;
+    padding: 40px 10px 40px;
   }
 `;
 
@@ -84,7 +84,8 @@ export const Btn = styled.button<{ typeBtn: 'white' | 'red' }>`
   font-size: 14px;
   /* line-height: 24px; */
 
-  padding: 10px 25px;
+  padding: 8px 22px;
+
   border-radius: 20px;
 
   &:hover {

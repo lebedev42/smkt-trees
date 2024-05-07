@@ -35,7 +35,7 @@ export const Container = styled.div`
     padding: 50px 20px 50px;
   }
   @media (max-width: 320px) {
-    padding: 60px 5px 90px;
+    padding: 40px 10px 40px;
   }
 `;
 
