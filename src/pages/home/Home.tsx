@@ -39,8 +39,8 @@ const Home = () => {
 
     const resultData = {
       user: '',
-      longitude: selectedSector.coordinates[0],
-      latitude: selectedSector.coordinates[1],
+      longitude: selectedSector.lng,
+      latitude: selectedSector.lat,
       city: mapType === 'firstMap' ? 'spb' : 'ekb',
       sector: selectedSector.number,
     };
@@ -80,7 +80,7 @@ const Home = () => {
         ) : (
           <Styled.Content>
             <Styled.Title>
-              Приближайте карту, чтобы выбрать сектор для своего дерева
+              Приближайте карту, чтобы выбрать сектор для дерева
             </Styled.Title>
             <SwgViewer
               selected={selectedSector}

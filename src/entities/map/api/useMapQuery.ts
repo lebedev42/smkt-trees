@@ -1,14 +1,21 @@
 import { useCallback } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
+import { MapItem } from './types';
+
 // import { restApiMethods } from '../../../shared/api';
+import { supabase } from '../../../shared/api/supabase';
 
 import * as constants from './constants';
 
-import { MapItem } from './types';
+const getMap = async (
+  param: 'firstMap' | 'secondMap' | null,
+): Promise<MapItem[]> => {
+  const { data: map } = await supabase.from('maps').select('*');
 
-const getMap = (param: 'firstMap' | 'secondMap' | null): Promise<MapItem[]> =>
-  new Promise((resolve) => {
+  console.error('map', map);
+
+  return new Promise((resolve) => {
     setTimeout(() => {
       if (param === 'firstMap') {
         resolve(constants.firstMap);
@@ -17,6 +24,7 @@ const getMap = (param: 'firstMap' | 'secondMap' | null): Promise<MapItem[]> =>
       }
     }, 1000);
   });
+};
 
 // const getMap = (param: string): Promise<HistoryItem[]> => {
 //   if (param === 'firstMap') {

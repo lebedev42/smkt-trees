@@ -3,7 +3,8 @@ export interface MapItem {
   number: number;
   name: string;
   available: number;
-  coordinates: [string, string];
+  lat: string;
+  lng: string;
 }
 
 export interface GameResultData {
