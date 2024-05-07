@@ -14,6 +14,8 @@ export const Container = styled.div`
 
   .mapCeil {
     fill: #16615d;
+
+    cursor: pointer;
   }
 `;
 

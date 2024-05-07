@@ -140,11 +140,7 @@ export const SwgViewer: React.FC<SwgViewerProps> = (props) => {
     const allCeils = document.querySelectorAll('.mapCeil');
 
     allCeils.forEach((ceil) => {
-      ceil.addEventListener(
-        'touchstart',
-        (e) => clickHandler(e, allCeils),
-        false,
-      );
+      ceil.addEventListener('click', (e) => clickHandler(e, allCeils), false);
     });
 
     // containerRef.current?.addEventListener(
