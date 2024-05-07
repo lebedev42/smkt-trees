@@ -3,5 +3,12 @@ export interface MapItem {
   number: number;
   name: string;
   available: number;
-  coordinates: [number, number];
+  coordinates: [string, string];
+}
+
+export interface GameResultData {
+  user: string;
+  longitude: string;
+  latitude: string;
+  city: string;
 }

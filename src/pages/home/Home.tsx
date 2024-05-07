@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import queryString from 'query-string';
 import clsx from 'clsx';
 
 import { SwgViewer } from '../../widgets/swg-viewer';
 
-import { useMapQuery } from '../../entities/map/api';
+import { useMapQuery, useGameMutation } from '../../entities/map/api';
 import { MapItem } from '../../entities/map/api/types';
 
 import { Welcome } from '../../widgets/welcome';
@@ -15,6 +16,8 @@ const Home = () => {
   const [mapType, setMapType] = useState<'firstMap' | 'secondMap' | null>(null);
 
   const { data, isLoading, isError } = useMapQuery(mapType);
+
+  const { useSendGameResult } = useGameMutation();
 
   const [selectedSector, setSelectedSector] = useState<MapItem | null>(null);
   const [finished, setFinished] = useState(false);
@@ -29,6 +32,30 @@ const Home = () => {
     }
 
     setFinished(true);
+
+    const resultData = {
+      user: '',
+      longitude: selectedSector.coordinates[0],
+      latitude: selectedSector.coordinates[1],
+      city: mapType === 'firstMap' ? 'spb' : 'ekb',
+    };
+
+    const parsed = queryString.parse(location.search);
+
+    if (parsed?.user) {
+      const user = Array.isArray(parsed.user) ? parsed.user[0] : parsed.user;
+
+      if (user) {
+        resultData.user = user;
+      }
+    }
+
+    useSendGameResult(resultData, {
+      onSuccess: (response: any) => {
+        console.error('response', response);
+      },
+    });
+
     console.log(selectedSector);
   };
 
