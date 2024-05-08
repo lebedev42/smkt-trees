@@ -39,9 +39,7 @@ const Home = () => {
     }
 
     if (parsed?.id) {
-      const statusId = Array.isArray(parsed.statusId)
-        ? parsed.id[0]
-        : parsed.id;
+      const statusId = Array.isArray(parsed.id) ? parsed.id[0] : parsed.id;
 
       if (statusId) {
         setStatusId(statusId);
@@ -113,7 +111,9 @@ const Home = () => {
     return <Styled.Wrapper></Styled.Wrapper>;
   }
 
-  if (status) {
+  const isStatus = Array.isArray(status) ? status[0] : status;
+
+  if (isStatus) {
     return (
       <Styled.Wrapper>
         <Result>Вы уже выбрали сектор для дерева</Result>
