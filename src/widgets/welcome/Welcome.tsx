@@ -9,7 +9,9 @@ interface WelcomeProps {
 export const Welcome: React.FC<WelcomeProps> = ({ handleCitySelect }) => {
   return (
     <Styled.Container>
-      <Styled.Title>Выберите ваш город</Styled.Title>
+      <Styled.Title>
+        Выберете город, в котором хотите посадить дерево
+      </Styled.Title>
       <Styled.Actions>
         <Styled.Btn
           typeBtn="white"

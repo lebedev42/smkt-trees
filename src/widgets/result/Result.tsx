@@ -2,10 +2,10 @@ import React from 'react';
 import * as Styled from './Result.styled';
 
 interface ResultProps {
-  sector: number | undefined;
+  children: React.ReactNode;
 }
 
-export const Result: React.FC<ResultProps> = ({ sector }) => {
+export const Result: React.FC<ResultProps> = ({ children }) => {
   const handleBack = () => {
     if (window.Telegram) {
       window.Telegram.WebApp.close();
@@ -14,13 +14,7 @@ export const Result: React.FC<ResultProps> = ({ sector }) => {
 
   return (
     <Styled.Container>
-      <Styled.Title>
-        Отлично!
-        <br />
-        Вы выбрали сектор № {sector}.
-        <br />
-        Вернитесь в чат-бот, чтобы дать имя вашему дереву
-      </Styled.Title>
+      <Styled.Title>{children}</Styled.Title>
       <Styled.Actions>
         <Styled.Btn typeBtn="white" onClick={handleBack}>
           Вернуться

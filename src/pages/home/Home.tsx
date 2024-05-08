@@ -8,6 +8,8 @@ import {
   useMapQuery,
   useGameMutation,
   useMapMutation,
+  useStatusQuery,
+  useStatusMutation,
 } from '../../entities/map/api';
 
 import { MapItem } from '../../entities/map/api/types';
@@ -20,17 +22,46 @@ import * as Styled from './Home.styled';
 const Home = () => {
   const [mapType, setMapType] = useState<'firstMap' | 'secondMap' | null>(null);
 
-  const { data, isLoading, isError } = useMapQuery(mapType);
-
-  const { useSendGameResult } = useGameMutation();
-  const { useUpdateMap } = useMapMutation();
-
-  const [selectedSector, setSelectedSector] = useState<MapItem | null>(null);
-  const [finished, setFinished] = useState(false);
+  const [user, setUser] = useState<any>(null);
+  const [statusId, setStatusId] = useState<any>(null);
 
   useEffect(() => {
     window.Telegram.WebApp.expand();
+
+    const parsed = queryString.parse(location.search);
+
+    if (parsed?.user) {
+      const user = Array.isArray(parsed.user) ? parsed.user[0] : parsed.user;
+
+      if (user) {
+        setUser(user);
+      }
+    }
+
+    if (parsed?.id) {
+      const statusId = Array.isArray(parsed.statusId)
+        ? parsed.id[0]
+        : parsed.id;
+
+      if (statusId) {
+        setStatusId(statusId);
+      }
+    }
   }, []);
+
+  const { data, isLoading, isError } = useMapQuery(mapType);
+  const {
+    data: status,
+    isLoading: isStatusLoading,
+    isError: isStatusError,
+  } = useStatusQuery(statusId);
+
+  const { useSendGameResult } = useGameMutation();
+  const { useUpdateMap } = useMapMutation();
+  const { useUpdateStatus } = useStatusMutation();
+
+  const [selectedSector, setSelectedSector] = useState<MapItem | null>(null);
+  const [finished, setFinished] = useState(false);
 
   const handleCitySelect = (mapType: 'firstMap' | 'secondMap') => {
     setMapType(mapType);
@@ -47,22 +78,12 @@ const Home = () => {
     };
 
     const resultData = {
-      user: '',
+      user: user,
       latitude: coords.latitude,
       longitude: coords.longitude,
       city: mapType === 'firstMap' ? 'spb' : 'ekb',
       sector: selectedSector.number,
     };
-
-    const parsed = queryString.parse(location.search);
-
-    if (parsed?.user) {
-      const user = Array.isArray(parsed.user) ? parsed.user[0] : parsed.user;
-
-      if (user) {
-        resultData.user = user;
-      }
-    }
 
     useSendGameResult(resultData, {
       onSuccess: (response: any) => {
@@ -77,26 +98,40 @@ const Home = () => {
 
     useUpdateMap(updateData, {
       onSuccess: (response: any) => {
-        console.error('map updated', response);
+        useUpdateStatus({ id: statusId, status: true });
       },
     });
 
     setFinished(true);
   };
 
-  if (isLoading) {
+  if (isLoading || isStatusLoading) {
     return <Styled.Wrapper></Styled.Wrapper>;
   }
 
-  if (isError) {
+  if (isError || isStatusError) {
     return <Styled.Wrapper></Styled.Wrapper>;
+  }
+
+  if (status) {
+    return (
+      <Styled.Wrapper>
+        <Result>Вы уже выбрали сектор для дерева</Result>
+      </Styled.Wrapper>
+    );
   }
 
   return (
     <Styled.Wrapper>
       {data.length ? (
         finished ? (
-          <Result sector={selectedSector?.number} />
+          <Result>
+            Отлично!
+            <br />
+            Вы выбрали сектор № {selectedSector?.number}.
+            <br />
+            Вернитесь в чат-бот, чтобы дать имя вашему дереву
+          </Result>
         ) : (
           <Styled.Content>
             <Styled.Title>

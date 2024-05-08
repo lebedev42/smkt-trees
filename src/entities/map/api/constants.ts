@@ -10,6 +10,7 @@ export const queryKeys = {
   getFirstMap: 'getFirstMap',
   getSecondMap: 'getSecondMap',
   sendGameResult: 'sendGameResult',
+  getStatus: 'getStatus',
 };
 
 export const firstMap: MapItem[] = [
