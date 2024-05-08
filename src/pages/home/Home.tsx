@@ -38,8 +38,10 @@ const Home = () => {
       }
     }
 
-    if (parsed?.id) {
-      const statusId = Array.isArray(parsed.id) ? parsed.id[0] : parsed.id;
+    if (parsed?.statusId) {
+      const statusId = Array.isArray(parsed.statusId)
+        ? parsed.statusId[0]
+        : parsed.statusId;
 
       if (statusId) {
         setStatusId(statusId);
