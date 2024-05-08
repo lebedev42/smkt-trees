@@ -158,7 +158,10 @@ const Home = () => {
           </Styled.Content>
         )
       ) : (
-        <Welcome handleCitySelect={handleCitySelect} />
+        <>
+          {statusId}
+          <Welcome handleCitySelect={handleCitySelect} />
+        </>
       )}
     </Styled.Wrapper>
   );
